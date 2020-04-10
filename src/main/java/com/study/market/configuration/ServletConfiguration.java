@@ -17,7 +17,7 @@ import com.study.market.commons.Interceptor;
 @Configuration
 @EnableWebMvc
 @EnableAsync // @Async 어노테이션을 사용하기 위함
-@ComponentScan(basePackages="com.siwan.nulbo", excludeFilters=@ComponentScan.Filter(Configuration.class))
+@ComponentScan(basePackages="com.study.market", excludeFilters=@ComponentScan.Filter(Configuration.class))
 public class ServletConfiguration extends WebMvcConfigurerAdapter{
 
     @Override

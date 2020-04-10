@@ -7,9 +7,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -31,6 +34,7 @@ public class BaseController {
 	protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 	private static final String JSON_STRING_KEY = "params";
 	private static final String USER_SESSION_KEY = "userInfo";
+	protected Map params = null;
 
 	/**
 	 * NAME : convertRequestToMap
@@ -42,7 +46,8 @@ public class BaseController {
 	 * @return paramMap 맵형식으로 변환된 요청 파라미터
 	 * </pre>
 	 */
-	public Map convertRequestToMap(HttpServletRequest request){
+	@RequestMapping("/*")
+	public void convertRequestToMap(HttpServletRequest request){
 		String jsonString = request.getParameter(JSON_STRING_KEY);
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		if(StringUtils.hasText(jsonString)) {
@@ -76,7 +81,7 @@ public class BaseController {
 		Map sessionMap = (Map) request.getSession().getAttribute(USER_SESSION_KEY);
 		paramMap.put(USER_SESSION_KEY, sessionMap);
 
-		return paramMap;
+		this.params = paramMap;
 	}
 
 

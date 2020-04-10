@@ -1,18 +1,24 @@
 package com.study.market.configuration;
 
+import java.io.IOException;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+
+import com.mysql.jdbc.Driver;
 
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import net.sf.log4jdbc.tools.Log4JdbcCustomFormatter;
@@ -54,20 +60,19 @@ public class RootConfiguration {
 		Log4jdbcProxyDataSource dataSource = new Log4jdbcProxyDataSource(ds);
 		Log4JdbcCustomFormatter logFormatter = new Log4JdbcCustomFormatter();
 		logFormatter.setLoggingType(LoggingType.MULTI_LINE);
-		logFormatter.setSqlPrefix("SQL         :  \n");
+		logFormatter.setSqlPrefix("SQL         :  ");
 		dataSource.setLogFormatter(logFormatter);
 		return dataSource;
 	}
 
 	@Bean
-	public SqlSessionFactoryBean sqlSessionFactory() {
+	public SqlSessionFactoryBean sqlSessionFactory() throws IOException {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(this.dataSource());
 		sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
-		Resource [] rs = {
-			new ClassPathResource("mappers/userService.xml")
-		};
-		sqlSessionFactoryBean.setMapperLocations(rs);
+		 sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
+//				 .getResources("classpath*:mappers/*.xml"));
+				 .getResources("classpath*:com/study/market/*/mappers/*.xml"));
 		return sqlSessionFactoryBean;
 	}
 
@@ -83,4 +88,11 @@ public class RootConfiguration {
 		shaPasswordEncoder.setEncodeHashAsBase64(true);
 		return shaPasswordEncoder;
 	 }
+
+//	 @Bean
+//	 public MapperScannerConfigurer mapperScannerConfigurer() {
+//		 MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+//		 mapperScannerConfigurer.setBasePackage("com.study.market.*.dao");
+//		 return mapperScannerConfigurer;
+//	 }
 }
