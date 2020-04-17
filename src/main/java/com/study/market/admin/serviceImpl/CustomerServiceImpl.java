@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.study.market.admin.service.CustomerService;
-import com.study.market.commons.BaseService;
+import com.study.market.commons.service.BaseService;
 
 /**
  * FILE NAME   : CustomerServiceImpl.java

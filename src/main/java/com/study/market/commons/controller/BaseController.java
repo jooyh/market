@@ -1,4 +1,4 @@
-package com.study.market.commons;
+package com.study.market.commons.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -6,48 +6,35 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Interceptor extends HandlerInterceptorAdapter{
+/**
+ * FILE NAME   : BaseController.java
+ * PACKAGE     : com.study.market.commons
+ * PROJECT     : market
+ * CREATE DATE : 2020. 4. 3.
+ * CREATE BY   : SIWAN
+ * HISTORY =====================================
+ * [ DATE ]       [ NAME ]     [ DESC ]
+ * 2020. 4. 3.     SIWAN       최초작성
+ */
+public class BaseController {
 
-	protected static final Logger logger = LoggerFactory.getLogger(Interceptor.class);
-	private static final String SESSION_USER_INFO_KEY = "userInfo";
-
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		logger.debug("===================       START       ===================");
-		logger.debug(" Request URI \t:  " + request.getRequestURI());
-
-
-
-		return super.preHandle(request, response, handler);
-	}
-
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		super.postHandle(request, response, handler, modelAndView);
-	}
-
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-		super.afterCompletion(request, response, handler, ex);
-		logger.debug("===================       END       ===================");
-	}
+	protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+	private static final String JSON_STRING_KEY = "params";
+	private static final String USER_SESSION_KEY = "userInfo";
+	protected Map params = null;
 
 	/**
 	 * NAME : convertRequestToMap
@@ -59,8 +46,8 @@ public class Interceptor extends HandlerInterceptorAdapter{
 	 * @return paramMap 맵형식으로 변환된 요청 파라미터
 	 * </pre>
 	 */
-	private static final String JSON_STRING_KEY = "params";
-	private void convertRequestToMap(HttpServletRequest request){
+	@RequestMapping("/*")
+	public void convertRequestToMap(HttpServletRequest request){
 		String jsonString = request.getParameter(JSON_STRING_KEY);
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		if(StringUtils.hasText(jsonString)) {
@@ -90,8 +77,13 @@ public class Interceptor extends HandlerInterceptorAdapter{
 				e.printStackTrace();
 			}
 		}
-//		Map sessionMap = (Map) request.getSession().getAttribute(SESSION_USER_INFO_KEY);
-//		paramMap.put(SESSION_USER_INFO_KEY, sessionMap);
-		request.setAttribute("params", paramMap);
+
+		Map sessionMap = (Map) request.getSession().getAttribute(USER_SESSION_KEY);
+		paramMap.put(USER_SESSION_KEY, sessionMap);
+
+		this.params = paramMap;
 	}
+
+
 }
+

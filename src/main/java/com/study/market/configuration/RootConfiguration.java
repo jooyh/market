@@ -7,9 +7,10 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -17,8 +18,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-
-import com.mysql.jdbc.Driver;
 
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import net.sf.log4jdbc.tools.Log4JdbcCustomFormatter;
@@ -28,6 +27,10 @@ import net.sf.log4jdbc.tools.LoggingType;
 public class RootConfiguration {
 
 	private static final String APP_CONFIG_FILE_PATH = "props/market.properties";
+
+
+	@Autowired
+    private ApplicationContext applicationContext;
 
 	@Value("${db.driverClass}")
 	private Class jdbcDriverClassName;
@@ -69,10 +72,10 @@ public class RootConfiguration {
 	public SqlSessionFactoryBean sqlSessionFactory() throws IOException {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(this.dataSource());
-		sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
-		 sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
+		sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
+		 sqlSessionFactoryBean.setMapperLocations(applicationContext
 //				 .getResources("classpath*:mappers/*.xml"));
-				 .getResources("classpath*:com/study/market/*/mappers/*.xml"));
+				 .getResources("classpath*:com/study/market/**/mappers/*.xml"));
 		return sqlSessionFactoryBean;
 	}
 

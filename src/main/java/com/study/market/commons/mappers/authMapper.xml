@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AuthMapper">
+
+    <select id="chkAuthToken" parameterType="String" resultType="Map">
+        SELECT /* [AuthMapper.chkAuthToken] 사용자 토큰 체크 */
+               AUTH_TOKEN AS authToken
+             , USER_ID    AS userId
+          FROM AUTH
+         WHERE AUTH_TOKEN = #{authToken}
+           AND DATE_FORMAT(REG_DTM, '%Y%m%d%') =  DATE_FORMAT(NOW(), '%Y%m%d%')
+    </select>
+
+    <insert id="insertAuth" parameterType="Map">
+        INSERT /* [AuthMapper.insertAuth] 사용자 토큰 추가 */
+          INTO AUTH (
+               USER_ID
+             , AUTH_TOKEN
+             , REG_ID
+             , REG_DTM
+             , UPD_ID
+             , UPD_DTM
+             )
+               VALUES(
+               #{userId}
+             , #{authToken}
+             , #{userId}
+             , NOW()
+             , #{userId}
+             , NOW()
+             )
+            ON DUPLICATE KEY
+        UPDATE AUTH_TOKEN = #{authToken}
+             , REG_DTM    = NOW()
+             , UPD_DTM    = NOW()
+    </insert>
+
+</mapper>

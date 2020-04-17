@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.study.market.commons.Interceptor;
+import com.study.market.commons.util.Interceptor;
 
 
 @Configuration

@@ -1,4 +1,4 @@
-package com.study.market.commons;
+package com.study.market.commons.util;
 
 import java.io.IOException;
 import java.io.PrintWriter;

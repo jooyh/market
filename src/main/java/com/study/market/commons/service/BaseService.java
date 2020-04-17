@@ -1,4 +1,4 @@
-package com.study.market.commons;
+package com.study.market.commons.service;
 /**
  * FILE NAME   : BaseService.java
  * PACKAGE     : com.study.market.commons

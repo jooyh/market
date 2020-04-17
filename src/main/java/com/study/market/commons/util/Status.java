@@ -1,4 +1,4 @@
-package com.study.market.commons;
+package com.study.market.commons.util;
 /**
  * FILE NAME   : Status.java
  * PACKAGE     : com.study.market.commons
