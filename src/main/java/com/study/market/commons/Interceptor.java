@@ -31,21 +31,8 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		logger.debug("===================       START       ===================");
 		logger.debug(" Request URI \t:  " + request.getRequestURI());
 
-		HttpSession httpSession = request.getSession(true);
-		Map session = (Map) httpSession.getAttribute(SESSION_USER_INFO_KEY);
 
-		if("/".equals(request.getRequestURI())) {
-			if(session != null) httpSession.removeAttribute(SESSION_USER_INFO_KEY);
-		}else {
-			if(!request.getRequestURI().contains("login")
-				&& !request.getRequestURI().contains("join")
-				&& !request.getRequestURI().contains("emailCheck")
-				&& !request.getRequestURI().contains("resources")
-				&& session == null) {
-				response.sendRedirect("/");
-			}
-		}
-		this.convertRequestToMap(request);
+
 		return super.preHandle(request, response, handler);
 	}
 
@@ -103,8 +90,8 @@ public class Interceptor extends HandlerInterceptorAdapter{
 				e.printStackTrace();
 			}
 		}
-		Map sessionMap = (Map) request.getSession().getAttribute(SESSION_USER_INFO_KEY);
-		paramMap.put(SESSION_USER_INFO_KEY, sessionMap);
+//		Map sessionMap = (Map) request.getSession().getAttribute(SESSION_USER_INFO_KEY);
+//		paramMap.put(SESSION_USER_INFO_KEY, sessionMap);
 		request.setAttribute("params", paramMap);
 	}
 }
