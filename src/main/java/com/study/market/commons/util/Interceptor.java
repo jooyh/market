@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -19,19 +20,26 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.study.market.commons.service.AuthService;
 
 public class Interceptor extends HandlerInterceptorAdapter{
 
 	protected static final Logger logger = LoggerFactory.getLogger(Interceptor.class);
-	private static final String SESSION_USER_INFO_KEY = "userInfo";
+
+	@Autowired
+	private AuthService authService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		this.convertRequestToMap(request);
+		String uri = request.getRequestURI();
 		logger.debug("===================       START       ===================");
-		logger.debug(" Request URI \t:  " + request.getRequestURI());
+		logger.debug(" Request URI \t:  " + uri);
 
-
+		if(!uri.toUpperCase().contains("logIn".toUpperCase()) || !uri.toUpperCase().contains("logOut".toUpperCase())) {
+//			authService.chkAuthToken();
+		}
 
 		return super.preHandle(request, response, handler);
 	}

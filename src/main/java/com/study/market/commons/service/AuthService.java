@@ -65,15 +65,15 @@ public class AuthService {
 	 * @throws AuthException
 	 * </pre>
 	 */
-	public int insertAuth(Map userInfo) throws AuthException {
+	public String insertAuth(Map userInfo) throws AuthException {
 		String userId = (String) userInfo.get("userId");
 		String token = this.makeToken(userInfo);
 		userInfo.put("authToken",token);
 		int result = sqlSession.insert(NAME_SPACE+"insertAuth",userInfo);
 		if(result != 1) {
-			throw new AuthException("인증정보 등록 중 오류가 발생했습니다.","001");
+			throw new AuthException("인증정보 등록 중 오류가 발생했습니다.",1);
 		}
-		return result;
+		return token;
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class AuthService {
 					  .compact();
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
-			throw new AuthException("토큰 생성 중 오류가 발생했습니다.","002");
+			throw new AuthException("토큰 생성 중 오류가 발생했습니다.",2);
 		}
 		return jwt;
 	}

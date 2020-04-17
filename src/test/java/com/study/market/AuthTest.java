@@ -62,7 +62,7 @@ public class AuthTest {
 //	@Test
 	public void insertAuth() {
 		try {
-			int result = authService.insertAuth(this.userInfo);
+			String result = authService.insertAuth(this.userInfo);
 		} catch (AuthException e) {
 			// TODO Auto-generated catch block
 			logger.debug(e.getMessage());

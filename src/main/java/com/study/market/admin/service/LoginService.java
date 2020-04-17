@@ -2,6 +2,9 @@ package com.study.market.admin.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * FILE NAME   : LoginService.java
  * PACKAGE     : com.study.market.admin.service
@@ -24,7 +27,7 @@ public interface LoginService {
 	 * @return map       : 사용자정보
 	 * </pre>
 	 */
-	public Map login(Map loginInfo);
+	public Map logIn(HttpServletRequest request,HttpServletResponse response);
 
 	/**
 	 * NAME : logOut
@@ -35,7 +38,7 @@ public interface LoginService {
 	 * @param userInfo : 로그인 사용자 정보
 	 * </pre>
 	 */
-	public void logOut(Map userInfo);
+	public void logOut(HttpServletRequest request,HttpServletResponse response);
 
 }
 
