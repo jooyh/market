@@ -5,8 +5,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.study.market.commons.exceptions.AuthException;
+
 /**
- * FILE NAME   : LoginService.java
+ * FILE NAME   : AccountService.java
  * PACKAGE     : com.study.market.admin.service
  * PROJECT     : market
  * CREATE DATE : 2020. 4. 17.
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * [ DATE ]       [ NAME ]     [ DESC ]
  * 2020. 4. 17.     SIWAN       최초작성
  */
-public interface LoginService {
+public interface AccountService {
 
 	/**
 	 * NAME : login
@@ -27,7 +29,7 @@ public interface LoginService {
 	 * @return map       : 사용자정보
 	 * </pre>
 	 */
-	public Map logIn(HttpServletRequest request,HttpServletResponse response);
+	public Map logIn(HttpServletRequest request,HttpServletResponse response) throws AuthException;
 
 	/**
 	 * NAME : logOut

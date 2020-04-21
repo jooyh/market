@@ -1,5 +1,6 @@
 package com.study.market.configuration;
 
+import javax.print.attribute.standard.Severity;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,6 +23,7 @@ public class WebInitializer implements WebApplicationInitializer{
 		servletContext.addListener(new ContextLoaderListener(rootContext));
 		this.addDispatcherServlet(servletContext);
 		this.addUtf8CharacterEncodingFilter(servletContext);
+		this.addSimpleCORSFilter(servletContext);
 	} /** * Dispatcher Servlet 을 추가한다.
 		* CORS 를 가능하게 하기 위해서 dispatchOptionsRequest 설정을 true 로 한다.
 		* * @param servletContext */
@@ -43,8 +45,14 @@ public class WebInitializer implements WebApplicationInitializer{
 		filter.addMappingForUrlPatterns(null, false, "/*");
 	}
 
+	private void addSimpleCORSFilter(ServletContext servletContext) {
+		FilterRegistration.Dynamic filter = servletContext.addFilter("simpleCORSFilter",SimpleCORSFilter.class);
+		filter.addMappingForUrlPatterns(null, false, "/*");
+	}
+
 	private void addXssEscapeServletFilter(ServletContext servletContext) {
 		FilterRegistration.Dynamic filter = servletContext.addFilter("xssEscapeServletFilter",XssEscapeServletFilter.class);
 		filter.addMappingForUrlPatterns(null, false, "/*");
 	}
+
 }

@@ -1,5 +1,6 @@
 package com.study.market.admin.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.market.admin.service.LoginService;
+import com.study.market.admin.service.AccountService;
+import com.study.market.commons.exceptions.AuthException;
 
 /**
  * FILE NAME   : LoginController.java
@@ -24,10 +26,10 @@ import com.study.market.admin.service.LoginService;
  */
 @Controller
 @RequestMapping("admin")
-public class LoginController {
+public class AccountController {
 
 	@Autowired
-	private LoginService loginService;
+	private AccountService accountService;
 
 	/**
 	 * NAME : login
@@ -40,13 +42,15 @@ public class LoginController {
 	 * @param response : 응답객체
 	 * @return userInfo : 로그인 사용자 정보 리턴
 	 * </pre>
+	 * @throws AuthException
 	 */
 	@RequestMapping("logIn")
 	@ResponseBody
-	public Map login(HttpServletRequest request ,HttpServletResponse response ) {
+	public Map login(HttpServletRequest request ,HttpServletResponse response ) throws AuthException {
 		Map logInInfo = (Map) request.getAttribute("params");
-		return loginService.logIn(request,response);
+		Map userInfo = accountService.logIn(request,response);
+		if(userInfo == null) userInfo = new HashMap();
+		return userInfo;
 	}
-
 }
 

@@ -40,7 +40,9 @@ public class ServletConfiguration extends WebMvcConfigurerAdapter{
     /** * 인터셉터 추가 */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-    	registry.addInterceptor(new Interceptor());
+    	registry.addInterceptor(new Interceptor())
+    	.addPathPatterns("/**")
+    	.excludePathPatterns("/public/**");
     }
 }
 

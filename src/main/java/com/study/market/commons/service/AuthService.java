@@ -70,7 +70,7 @@ public class AuthService {
 		String token = this.makeToken(userInfo);
 		userInfo.put("authToken",token);
 		int result = sqlSession.insert(NAME_SPACE+"insertAuth",userInfo);
-		if(result != 1) {
+		if(result < 1) {
 			throw new AuthException("인증정보 등록 중 오류가 발생했습니다.",1);
 		}
 		return token;

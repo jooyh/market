@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.study.market.admin.service.LoginService;
+import com.study.market.admin.service.AccountService;
 import com.study.market.commons.exceptions.AuthException;
 import com.study.market.commons.service.AuthService;
 
@@ -25,7 +26,7 @@ import com.study.market.commons.service.AuthService;
  * 2020. 4. 17.     SIWAN       최초작성
  */
 @Service
-public class AdminLoginServiceImpl implements LoginService{
+public class AdminAccountServiceImpl implements AccountService{
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -33,34 +34,42 @@ public class AdminLoginServiceImpl implements LoginService{
 	@Autowired
 	private AuthService authService;
 
-	private static final String NAME_SPACE = "LoginMapper.";
+	@Autowired
+	ShaPasswordEncoder encoder;
 
-	private static final int COOKIE_LIFE_TM = 24*60*60;
+	private static final String NAME_SPACE = "AccountMapper.";
+
+	private static final int COOKIE_LIFE_TM = 24*24*60;
 
 	@Override
-	public Map logIn(HttpServletRequest request,HttpServletResponse response) {
+	public Map logIn(HttpServletRequest request,HttpServletResponse response) throws AuthException {
 		Map params = (Map) request.getAttribute("params");
+		String userPw = (String) params.get("userPw");
+//		String shaPw = encoder.encodePassword(userPw,null);
+//		params.put("userPw", shaPw);
 		Map userInfo = sqlSession.selectOne(NAME_SPACE+"adminLogin",params);
 		Cookie[] cookies = request.getCookies();
 
-		//쿠키 초기화
-		for(Cookie c : cookies) {
-			if("aythToken".equals(c.getName())) {
-				c.setMaxAge(0);
-				c.setValue(null);
-				response.addCookie(c);
-			}
-		}
-
+		//정상로그인 ( 사용자 정보 존재시 )
 		if(userInfo != null) {
-			Cookie cookie = null;
-			try {
-				//쿠키에 Token 정보 등록
-				cookie = new Cookie("authToken", authService.insertAuth(userInfo));
-				cookie.setMaxAge(COOKIE_LIFE_TM);
-			} catch (AuthException e) {
-				response.setStatus(e.getErrCode(),e.getMessage());
+			//쿠키 초기화
+			if(cookies != null) {
+				for(Cookie c : cookies) {
+					if("aythToken".equals(c.getName())) {
+						c.setMaxAge(0);
+						c.setValue(null);
+						response.addCookie(c);
+					}
+				}
 			}
+
+			Cookie cookie = null;
+			//쿠키에 Token 정보 등록
+			String authToken = authService.insertAuth(userInfo);
+			if(authToken == null) throw new AuthException("토큰 생성 중 오류가 발생했습니다.",2);
+			cookie = new Cookie("authToken", authToken);
+			cookie.setMaxAge(COOKIE_LIFE_TM);
+			cookie.setPath("/");
 			response.addCookie(cookie);
 		}
 		return userInfo;
