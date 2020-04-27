@@ -71,7 +71,7 @@ public class AuthService {
 		userInfo.put("authToken",token);
 		int result = sqlSession.insert(NAME_SPACE+"insertAuth",userInfo);
 		if(result < 1) {
-			throw new AuthException("인증정보 등록 중 오류가 발생했습니다.",1);
+			throw new AuthException("인증정보 등록 중 오류가 발생했습니다.",200);
 		}
 		return token;
 	}
@@ -102,7 +102,7 @@ public class AuthService {
 					  .compact();
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
-			throw new AuthException("토큰 생성 중 오류가 발생했습니다.",2);
+			throw new AuthException("토큰 생성 중 오류가 발생했습니다.",300);
 		}
 		return jwt;
 	}

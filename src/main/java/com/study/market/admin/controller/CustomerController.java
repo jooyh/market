@@ -32,14 +32,11 @@ public class CustomerController{
 
 	@RequestMapping("getCustomerList")
 	@ResponseBody
-	public Map getCustomerList(HttpServletRequest request) {
+	public List getCustomerList(HttpServletRequest request) {
 		Map resultMap = new HashMap();
 		Map params = (Map) request.getAttribute("params");
-		List customerList = customerService.getCustomerInfo(params);
-		resultMap.put("RESULT",customerList );
-		return resultMap;
+		return customerService.getCustomerInfo(params);
 	}
-
 
 }
 

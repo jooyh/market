@@ -44,11 +44,11 @@ public class AccountController {
 	 * </pre>
 	 * @throws AuthException
 	 */
-	@RequestMapping("logIn")
+	@RequestMapping("login")
 	@ResponseBody
 	public Map login(HttpServletRequest request ,HttpServletResponse response ) throws AuthException {
 		Map logInInfo = (Map) request.getAttribute("params");
-		Map userInfo = accountService.logIn(request,response);
+		Map userInfo = accountService.login(request,response);
 		if(userInfo == null) userInfo = new HashMap();
 		return userInfo;
 	}

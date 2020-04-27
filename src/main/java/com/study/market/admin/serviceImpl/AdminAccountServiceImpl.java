@@ -39,45 +39,44 @@ public class AdminAccountServiceImpl implements AccountService{
 
 	private static final String NAME_SPACE = "AccountMapper.";
 
-	private static final int COOKIE_LIFE_TM = 24*24*60;
-
 	@Override
-	public Map logIn(HttpServletRequest request,HttpServletResponse response) throws AuthException {
+	public Map login(HttpServletRequest request,HttpServletResponse response) throws AuthException {
 		Map params = (Map) request.getAttribute("params");
 		String userPw = (String) params.get("userPw");
-//		String shaPw = encoder.encodePassword(userPw,null);
-//		params.put("userPw", shaPw);
+		String shaPw = encoder.encodePassword(userPw,null);
+		params.put("userPw", shaPw);
 		Map userInfo = sqlSession.selectOne(NAME_SPACE+"adminLogin",params);
-		Cookie[] cookies = request.getCookies();
 
+//		Cookie[] cookies = request.getCookies();
 		//정상로그인 ( 사용자 정보 존재시 )
-		if(userInfo != null) {
+//		if(userInfo != null) {
 			//쿠키 초기화
-			if(cookies != null) {
-				for(Cookie c : cookies) {
-					if("aythToken".equals(c.getName())) {
-						c.setMaxAge(0);
-						c.setValue(null);
-						response.addCookie(c);
-					}
-				}
-			}
+//			if(cookies != null) {
+//				for(Cookie c : cookies) {
+//					if("aythToken".equals(c.getName())) {
+//						c.setMaxAge(0);
+//						c.setValue(null);
+//						response.addCookie(c);
+//					}
+//				}
+//			}
 
-			Cookie cookie = null;
-			//쿠키에 Token 정보 등록
-			String authToken = authService.insertAuth(userInfo);
-			if(authToken == null) throw new AuthException("토큰 생성 중 오류가 발생했습니다.",2);
-			cookie = new Cookie("authToken", authToken);
-			cookie.setMaxAge(COOKIE_LIFE_TM);
-			cookie.setPath("/");
-			response.addCookie(cookie);
-		}
+//			Cookie cookie = null;
+//			//쿠키에 Token 정보 등록
+//			String authToken = authService.insertAuth(userInfo);
+//			if(authToken == null) throw new AuthException("토큰 생성 중 오류가 발생했습니다.",2);
+//			cookie = new Cookie("authToken", authToken);
+//			cookie.setMaxAge(COOKIE_LIFE_TM);
+//			cookie.setPath("/");
+//			response.addCookie(cookie);
+//		}
 		return userInfo;
 	}
 
 	@Override
-	public void logOut(HttpServletRequest request,HttpServletResponse response) {
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+
 	}
 
 }

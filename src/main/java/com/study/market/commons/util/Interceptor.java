@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +19,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.market.commons.exceptions.AuthException;
 import com.study.market.commons.service.AuthService;
 
 public class Interceptor extends HandlerInterceptorAdapter{
@@ -38,31 +36,17 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		logger.debug("===================       START       ===================");
 		logger.debug(" Request URI \t:  " + uri);
 
-		if(!uri.toUpperCase().contains("logIn".toUpperCase()) && !uri.toUpperCase().contains("logOut".toUpperCase())) {
-			Map params = (Map) request.getAttribute("params");
-			String authToken = (String) params.get("authToken");
-			Cookie[] cookies = request.getCookies();
-			if(cookies == null) throw new AuthException("인증정보가 없습니다.");
-			for(Cookie cookie : cookies) {
-				if("aythToken".equals(cookie.getName())) authToken = cookie.getValue();
-			}
-			authService.chkAuthToken(authToken);
-		}
+		Map params = (Map) request.getAttribute("params");
+		String authToken = (String) params.get("authToken");
+		authService.chkAuthToken(authToken);
 
 		return super.preHandle(request, response, handler);
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) {
-		try {
-
-			super.postHandle(request, response, handler, modelAndView);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			ModelAndView modelAndView) throws Exception {
+		super.postHandle(request, response, handler, modelAndView);
 	}
 
 	@Override

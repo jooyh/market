@@ -9,11 +9,13 @@ package com.study.market.commons.exceptions;
  * [ DATE ]       [ NAME ]     [ DESC ]
  * 2020. 4. 17.     SIWAN       최초작성
  */
+@SuppressWarnings("serial")
 public class AuthException extends Exception{
 	/* 인증 예외처리 클래스
 	 *
-	 * 0 > 인증정보 없음
-	 *
+	 * 100 > 인증정보 없음
+	 * 200 > 등록오류
+	 * 300 > 토큰 생성오류
 	 **/
 
 	private final int ERR_CODE;

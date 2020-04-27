@@ -29,7 +29,7 @@ public interface AccountService {
 	 * @return map       : 사용자정보
 	 * </pre>
 	 */
-	public Map logIn(HttpServletRequest request,HttpServletResponse response) throws AuthException;
+	public Map login(HttpServletRequest request,HttpServletResponse response) throws AuthException;
 
 	/**
 	 * NAME : logOut
@@ -40,7 +40,7 @@ public interface AccountService {
 	 * @param userInfo : 로그인 사용자 정보
 	 * </pre>
 	 */
-	public void logOut(HttpServletRequest request,HttpServletResponse response);
+	public void logout(HttpServletRequest request,HttpServletResponse response);
 
 }
 
