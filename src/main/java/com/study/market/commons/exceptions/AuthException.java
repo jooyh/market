@@ -26,7 +26,7 @@ public class AuthException extends Exception{
 	}
 
 	public AuthException(String msg) {
-		this(msg,0);
+		this(msg,100);
 	}
 
 	public int getErrCode() {

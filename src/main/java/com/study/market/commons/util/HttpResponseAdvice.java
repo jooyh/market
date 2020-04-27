@@ -1,5 +1,7 @@
 package com.study.market.commons.util;
 
+import java.util.Map;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,11 +26,13 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object> {
 	}
 
 	@Override
-	public ResultMap beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
 		// TODO Auto-generated method stub
-		return new ResultMap(body);
+		Map result = (Map) body;
+		if(!result.containsKey("code")) body = new ResultMap(body);
+		return body;
 	}
 
 	@ResponseBody
