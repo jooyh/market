@@ -38,6 +38,7 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object> {
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
     public ResponseEntity<ResultMap> exceptionHandler(Exception e) {
+		e.printStackTrace();
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         ResultMap rm = new ResultMap(null,e.hashCode(),e.getMessage());
         return new ResponseEntity<>(rm, httpStatus);

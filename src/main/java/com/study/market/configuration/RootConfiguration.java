@@ -17,6 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import net.sf.log4jdbc.tools.Log4JdbcCustomFormatter;
@@ -89,6 +90,14 @@ public class RootConfiguration {
 		ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder(512);
 		shaPasswordEncoder.setEncodeHashAsBase64(true);
 		return shaPasswordEncoder;
+	 }
+
+	 @Bean
+	 public CommonsMultipartResolver multipartResolver() {
+		 CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		 multipartResolver.setMaxUploadSize(100000000);
+		 multipartResolver.setMaxInMemorySize(100000000);
+		 return multipartResolver;
 	 }
 
 //	 @Bean

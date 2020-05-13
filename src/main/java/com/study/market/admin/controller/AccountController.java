@@ -1,18 +1,20 @@
 package com.study.market.admin.controller;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.study.market.admin.service.AccountService;
 import com.study.market.commons.exceptions.AuthException;
+import com.study.market.commons.exceptions.FileException;
+import com.study.market.commons.util.FileUtil;
+import com.study.market.commons.vo.ResultMap;
 
 /**
  * FILE NAME   : LoginController.java
@@ -31,6 +33,9 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 
+	@Autowired
+	private FileUtil fileUtil;
+
 	/**
 	 * NAME : login
 	 * DESC : 관리자 로그인
@@ -42,15 +47,19 @@ public class AccountController {
 	 * @param response : 응답객체
 	 * @return userInfo : 로그인 사용자 정보 리턴
 	 * </pre>
+	 * @throws FileException
 	 * @throws AuthException
 	 */
 	@RequestMapping("login")
 	@ResponseBody
-	public Map login(HttpServletRequest request ,HttpServletResponse response ) throws AuthException {
-		Map logInInfo = (Map) request.getAttribute("params");
-		Map userInfo = accountService.login(request,response);
-		if(userInfo == null) userInfo = new HashMap();
-		return userInfo;
+//	public Map login(HttpServletRequest request ,HttpServletResponse response ) throws AuthException {
+//		Map logInInfo = (Map) request.getAttribute("params");
+//		Map userInfo = accountService.login(request,response);
+//		if(userInfo == null) userInfo = new HashMap();
+//		return userInfo;
+//	}
+	public ResultMap login(MultipartHttpServletRequest request ) throws FileException {
+		return new ResultMap(fileUtil.uploadFiles(request));
 	}
 }
 
