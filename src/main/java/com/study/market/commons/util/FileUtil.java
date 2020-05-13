@@ -138,4 +138,25 @@ public class FileUtil {
 		return dir.getPath();
 	}
 
+	/**
+	 * NAME : deleteFile
+	 * DESC : 파일 삭제
+	 * DATE : 2020. 5. 13.
+	 * <pre>
+	 * @auther jyh
+	 * @param filePath
+	 * @return result 정상삭제 여부
+	 * </pre>
+	 */
+	public boolean deleteFile(String filePath) {
+		int result = 0;
+		File file = new File(filePath);
+		if(file.exists()) {
+			file.delete();
+		}else {
+			new FileException("존재하지 않는 파일입니다.("+file.getName()+")",300);
+		}
+		return !file.exists();
+	}
+
 }
