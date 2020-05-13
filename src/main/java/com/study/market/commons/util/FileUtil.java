@@ -11,9 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -29,13 +33,12 @@ import com.study.market.commons.exceptions.FileException;
  * [ DATE ]       [ NAME ]     [ DESC ]
  * 2020. 5. 13.     SIWAN       최초작성
  */
-@Service
 public class FileUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
-//	@Value("${file.uploadBaseDir}")
-	private String uploadBaseDir = "/upload/";
+	@Value("${file.uploadBaseDir}")
+	private String uploadBaseDir;
 
 	/**
 	 * NAME : uploadFiles
@@ -51,7 +54,7 @@ public class FileUtil {
 	public List<Map<String,String>> uploadFiles(MultipartHttpServletRequest request) throws FileException{
 		List uploadedFileList = new ArrayList();
 		String contextPath = request.getSession().getServletContext().getRealPath("/");
-		String path = getPath(contextPath);
+		String path = getUploadPath(contextPath);
 
 		Iterator<String> itr  = request.getFileNames();
 		while(itr.hasNext()) {
@@ -59,10 +62,10 @@ public class FileUtil {
 			for(MultipartFile mf : request.getFiles(inputNm)) {
 				int pos = mf.getOriginalFilename().lastIndexOf( "." ); // 마지막 . 의 위치
 				String ext = mf.getOriginalFilename().substring( pos + 1 ); // 확장자
-				File file = new File(path + getFileNm() + "." + ext);
+				File file = new File(path+ new File("").separator + getFileNm() + "." + ext);
 
 				while(file.exists()) {
-					file = new File(path+getFileNm());
+					file = new File(path+ new File("").separator + getFileNm() + "." + ext);
 				}
 				try {
 					mf.transferTo(file);
@@ -126,11 +129,11 @@ public class FileUtil {
 	 * @return dirNm
 	 * </pre>
 	 */
-	private String getPath(String contextPath) {
+	private String getUploadPath(String contextPath) {
 		Date now = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		String dirNm = format.format(now);
-		File dir = new File(contextPath+"/"+uploadBaseDir+dirNm);
+		File dir = new File(contextPath+uploadBaseDir+dirNm);
 		if(!dir.exists()) dir.mkdirs();
 		return dir.getPath();
 	}

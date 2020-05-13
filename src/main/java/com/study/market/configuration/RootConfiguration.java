@@ -19,6 +19,8 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.study.market.commons.util.FileUtil;
+
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import net.sf.log4jdbc.tools.Log4JdbcCustomFormatter;
 import net.sf.log4jdbc.tools.LoggingType;
@@ -98,6 +100,11 @@ public class RootConfiguration {
 		 multipartResolver.setMaxUploadSize(100000000);
 		 multipartResolver.setMaxInMemorySize(100000000);
 		 return multipartResolver;
+	 }
+
+	 @Bean
+	 public FileUtil fileUtil() {
+		 return new FileUtil();
 	 }
 
 //	 @Bean
