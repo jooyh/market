@@ -17,9 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.study.market.admin.controller.CustomerController;
 import com.study.market.configuration.RootConfiguration;
 import com.study.market.configuration.ServletConfiguration;
+import com.study.market.controller.CustomerController;
 
 /**
  * FILE NAME   : CommonTest.java

@@ -28,6 +28,6 @@ public class ResultMap extends HashMap<String,Object>{
 		this.put("result", result);
 		this.put("code", this.code);
 		this.put("msg", this.msg);
-	}
+	} 
 
 }

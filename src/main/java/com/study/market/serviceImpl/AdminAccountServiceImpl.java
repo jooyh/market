@@ -1,4 +1,4 @@
-package com.study.market.admin.serviceImpl;
+package com.study.market.serviceImpl;
 
 import java.util.Map;
 
@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.study.market.admin.service.AccountService;
 import com.study.market.commons.exceptions.AuthException;
 import com.study.market.commons.service.AuthService;
+import com.study.market.service.AccountService;
 
 /**
  * FILE NAME   : AdminLoginServiceImpl.java

@@ -37,8 +37,9 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		logger.debug(" Request URI \t:  " + uri);
 
 		Map params = (Map) request.getAttribute("params");
-		String authToken = (String) params.get("authToken");
-		authService.chkAuthToken(authToken);
+		logger.debug(" params \t:  " + params.toString());
+//		String authToken = (String) params.get("authToken");
+//		authService.chkAuthToken(authToken);
 
 		return super.preHandle(request, response, handler);
 	}

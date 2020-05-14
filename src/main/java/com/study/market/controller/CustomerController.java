@@ -1,7 +1,5 @@
-package com.study.market.admin.controller;
+package com.study.market.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.market.admin.service.CustomerService;
+import com.study.market.commons.controller.BaseController;
+import com.study.market.commons.vo.ResultMap;
+import com.study.market.service.CustomerService;
 
 /**
  * FILE NAME   : CustomerController.java
@@ -24,18 +24,17 @@ import com.study.market.admin.service.CustomerService;
  * 2020. 4. 10.     SIWAN       최초작성
  */
 @Controller
-@RequestMapping("admin/customer")
-public class CustomerController{
+@RequestMapping("customer")
+public class CustomerController extends BaseController{
 
 	@Autowired
 	private CustomerService customerService;
 
 	@RequestMapping("getCustomerList")
 	@ResponseBody
-	public List getCustomerList(HttpServletRequest request) {
-		Map resultMap = new HashMap();
-		Map params = (Map) request.getAttribute("params");
-		return customerService.getCustomerInfo(params);
+	public ResultMap getCustomerList(HttpServletRequest request) {
+		Map params = getParamMap(request);
+		return new ResultMap(customerService.getCustomerInfo(params));
 	}
 
 }

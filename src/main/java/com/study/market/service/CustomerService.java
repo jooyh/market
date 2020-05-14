@@ -1,11 +1,11 @@
-package com.study.market.admin.service;
+package com.study.market.service;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * FILE NAME   : CustomerService.java
- * PACKAGE     : com.study.market.admin.service
+ * PACKAGE     : com.study.market.service
  * PROJECT     : market
  * CREATE DATE : 2020. 4. 3.
  * CREATE BY   : SIWAN

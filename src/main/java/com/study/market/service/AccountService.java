@@ -1,4 +1,4 @@
-package com.study.market.admin.service;
+package com.study.market.service;
 
 import java.util.Map;
 

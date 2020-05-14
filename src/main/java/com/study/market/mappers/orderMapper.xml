@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrderMapper">
+	<select id="selectOrderList" parameterType="Map" resultType="Map">
+		SELECT /* [OrderMapper.selectOrderDetail] 주문목록 조회 */
+		       O.ORDERNUMBER
+             , O.ORDERDATE
+             , O.REQUIREDDATE
+             , O.SHIPPEDDATE
+             , O.STATUS
+             , O.COMMENTS
+             , O.CUSTOMERNUMBER
+             , C.CUSTOMERNAME
+             , C.PHONE
+          FROM ORDERS O
+             , CUSTOMERS C
+         WHERE O.CUSTOMERNUMBER = C.CUSTOMERNUMBER
+         <if test="customername != null">
+		   AND C.CUSTOMERNAME LIKE '%'||#{customername}||'%'
+		 </if>
+         <if test="status != null">
+		   AND C.STATUS LIKE '%'||#{status}||'%'
+		 </if>
+         ORDER BY O.ORDERDATE DESC
+         <if test="pageIdx != null">
+			LIMIT #{pageidx} , #{unitcnt}
+		 </if>
+	</select>
+
+	<select id="selectOrderDetail" parameterType="Map" resultType="Map">
+		SELECT /* [OrderMapper.selectOrderDetail] 주문상세 조회 */
+			   O.ORDERNUMBER
+	         , O.PRODUCTCODE
+	         , O.QUANTITYORDERED
+	         , O.PRICEEACH
+	         , P.PRODUCTNAME
+	         , P.PRODUCTNAME
+	         , P.PRODUCTSCALE
+	         , P.PRODUCTVENDOR
+	         , P.PRODUCTDESCRIPTION
+	         , P.QUANTITYINSTOCK
+	         , P.BUYPRICE
+	         , P.MSRP
+	      FROM ORDERDETAILS O
+	         , PRODUCTS P
+	     WHERE P.PRODUCTCODE = O.PRODUCTCODE
+	       AND O.ORDERNUMBER = #{ordernumber}
+	     ORDER BY O.ORDERLINENUMBER
+	</select>
+</mapper>

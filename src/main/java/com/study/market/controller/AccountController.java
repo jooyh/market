@@ -1,4 +1,4 @@
-package com.study.market.admin.controller;
+package com.study.market.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
-import com.study.market.admin.service.AccountService;
 import com.study.market.commons.exceptions.AuthException;
 import com.study.market.commons.exceptions.FileException;
 import com.study.market.commons.util.FileUtil;
 import com.study.market.commons.vo.ResultMap;
+import com.study.market.service.AccountService;
 
 /**
  * FILE NAME   : LoginController.java
- * PACKAGE     : com.study.market.admin.controller
+ * PACKAGE     : com.study.market.controller
  * PROJECT     : market
  * CREATE DATE : 2020. 4. 17.
  * CREATE BY   : SIWAN
@@ -27,7 +27,7 @@ import com.study.market.commons.vo.ResultMap;
  * 2020. 4. 17.     SIWAN       최초작성
  */
 @Controller
-@RequestMapping("admin")
+@RequestMapping("account")
 public class AccountController {
 
 	@Autowired

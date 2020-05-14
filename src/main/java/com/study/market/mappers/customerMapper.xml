@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CustomerMapper">
+	<select id="selectCustomerInfo" parameterType="Map" resultType="Map">
+        SELECT CUSTOMER_NUMBER
+		     , CUSTOMER_NAME
+		     , CONTACT_LAST_NAME
+		     , CONTACT_FIRST_NAME
+		     , PHONE
+		     , ADDRESS_LINE1
+		     , ADDRESS_LINE2
+		     , STATE
+		     , POSTAL_CODE
+		     , COUNTRY
+		     , SALES_REP_EMPLOYEE_NUMBER
+		     , CREDIT_LIMIT
+		  FROM CUSTOMERS C
+		 WHERE 1=1
+		 <if test="customernumber != null">
+		   AND CUSTOMER_NUMBER = #{customernumber}
+		 </if>
+		 <if test="customername != null">
+		   AND CUSTOMER_NAME LIKE '%'||#{customername}||'%'
+		 </if>
+		 <if test="phone != null">
+		   AND PHONE LIKE '%'||#{phone}||'%'
+		 </if>
+		 <if test="salesrepemployeenumber != null">
+		   AND SALES_REP_EMPLOYEE_NUMBER = #{salesrepemployeenumber}
+		 </if>
+		 ORDER BY CUSTOMER_NAME
+		 <if test="pageIdx != null">
+			LIMIT #{pageidx} , #{unitcnt}
+		 </if>
+	</select>
+</mapper>
