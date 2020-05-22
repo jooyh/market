@@ -10,6 +10,9 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesView;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import com.study.market.commons.util.Interceptor;
 
@@ -24,17 +27,34 @@ public class ServletConfiguration extends WebMvcConfigurerAdapter{
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-
     }
+
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".jsp");
+        resolver.setOrder(2);
         return resolver;
+    }
+
+    @Bean
+    public TilesViewResolver tilesViewResolver() {
+    	TilesViewResolver tilesViewResolver = new TilesViewResolver();
+    	tilesViewResolver.setViewClass(TilesView.class);
+    	tilesViewResolver.setOrder(1);
+    	return tilesViewResolver;
+    }
+
+    @Bean
+    public TilesConfigurer tilesConfigurer() {
+    	TilesConfigurer tilesConfigurer = new TilesConfigurer();
+    	tilesConfigurer.setDefinitions("/WEB-INF/tiles/tiles-def.xml");
+    	return tilesConfigurer;
     }
 
     /** * 인터셉터 추가 */

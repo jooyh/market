@@ -1,6 +1,5 @@
 package com.study.market.configuration;
 
-import javax.print.attribute.standard.Severity;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
