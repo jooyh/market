@@ -25,7 +25,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * 2020. 4. 17.     SIWAN       최초작성
  */
 @Service
-public class AuthService {
+public class AuthService extends BaseService{
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -34,6 +34,12 @@ public class AuthService {
 	private String secret;
 
 	private static final String NAME_SPACE = "AuthMapper.";
+
+	public boolean chkAccIp(String paramIp) throws AuthException {
+		String ip = sqlSession.selectOne(super.mkSqlId(NAME_SPACE,"selectAccIp"));
+		if(ip.isEmpty()) throw new AuthException("사용 등록되지 않은 IP입니다.",400);
+		return true;
+	}
 
 	/**
 	 * NAME : checkToken

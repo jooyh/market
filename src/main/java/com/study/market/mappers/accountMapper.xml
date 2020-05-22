@@ -4,12 +4,10 @@
 
     <select id="adminLogin" parameterType="Map" resultType="Map">
         SELECT /* [AccountMapper.adminLogin] 관리자 로그인 */
-               USER_ID      AS userId
-             , USER_EMAIL   AS userEmail
-             , USER_NAME    AS userName
-          FROM NB_USER
-         WHERE USER_EMAIL = #{userId}
-           AND USER_PW    = #{userPw}
+               ADM_ID
+          FROM API_ADM_INFO
+         WHERE ADM_ID = #{admId}
+           AND ADM_PW = #{admPw}
     </select>
 
 </mapper>

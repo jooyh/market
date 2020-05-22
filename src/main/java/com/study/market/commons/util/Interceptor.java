@@ -36,8 +36,12 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		logger.debug("===================       START       ===================");
 		logger.debug(" Request URI \t:  " + uri);
 
+		String ipAddr = request.getRemoteAddr();
+
+
 		Map params = (Map) request.getAttribute("params");
 		logger.debug(" params \t:  " + params.toString());
+
 //		String authToken = (String) params.get("authToken");
 //		authService.chkAuthToken(authToken);
 

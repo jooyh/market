@@ -1,32 +1,35 @@
 package com.study.market.commons.exceptions;
+
 /**
- * FILE NAME   : AuthException.java
+ * FILE NAME   : LoginException.java
  * PACKAGE     : com.study.market.exceptions
  * PROJECT     : market
- * CREATE DATE : 2020. 4. 17.
+ * CREATE DATE : 2020. 5. 22.
  * CREATE BY   : SIWAN
  * HISTORY =====================================
  * [ DATE ]       [ NAME ]     [ DESC ]
- * 2020. 4. 17.     SIWAN       최초작성
+ * 2020. 5. 22.     SIWAN       최초작성
  */
 @SuppressWarnings("serial")
-public class AuthException extends Exception{
+public class LoginException extends Exception{
 	/* 인증 예외처리 클래스
 	 *
-	 * 100 > 인증정보 없음
-	 * 200 > 등록오류
-	 * 300 > 토큰 생성오류
-	 * 400 > 허용되지 않은 아이피
+	 * 100 > 로그인에 실패했습니다.
 	 **/
 
 	private final int ERR_CODE;
 
-	public AuthException(String msg , int errCode) {
+	public LoginException() {
+		super("로그인에 실패했습니다.");
+		this.ERR_CODE = 100;
+	}
+
+	public LoginException(String msg , int errCode) {
 		super(msg);
 		this.ERR_CODE = errCode;
 	}
 
-	public AuthException(String msg) {
+	public LoginException(String msg) {
 		this(msg,100);
 	}
 
@@ -34,4 +37,3 @@ public class AuthException extends Exception{
 		return this.ERR_CODE;
 	}
 }
-
