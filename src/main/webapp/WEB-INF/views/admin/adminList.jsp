@@ -5,9 +5,8 @@
     <div class="table-area">
         <table class="tbl">
             <colgroup>
-                <col width="70px;"/>
+                <col width="200px"/>
                 <col />
-                <col width="130px"/>
                 <col width="130px"/>
                 <col width="130px"/>
                 <col width="130px"/>
@@ -15,11 +14,10 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th>SEQ</th>
-                    <th>IP</th>
-                    <th>등록신청일</th>
-                    <th>허용IP</th>
-                    <th>상태</th>
+                    <th>ID</th>
+                    <th>E-MAIL</th>
+                    <th>관리자 명</th>
+                    <th>관리자 타입</th>
                     <th>등록자</th>
                     <th>등록일</th>
                 </tr>
@@ -28,7 +26,6 @@
                 <tr>
                     <td>3</td>
                     <td class="align-l"><a href="javascript:void(0);">서비스 이용 약관</a></td>
-                    <td>필수</td>
                     <td>3</td>
                     <td>적용</td>
                     <td>홍길동</td>
@@ -37,7 +34,6 @@
                <tr>
                     <td>3</td>
                     <td class="align-l"><a href="javascript:void(0);">서비스 이용 약관</a></td>
-                    <td>필수</td>
                     <td>3</td>
                     <td>적용</td>
                     <td>홍길동</td>
@@ -45,7 +41,6 @@
                 </tr><tr>
                     <td>3</td>
                     <td class="align-l"><a href="javascript:void(0);">서비스 이용 약관</a></td>
-                    <td>필수</td>
                     <td>3</td>
                     <td>적용</td>
                     <td>홍길동</td>
@@ -65,7 +60,7 @@
             <a href="javascript:void(0);" class="nav next_01">처음목록</a>
             <a href="javascript:void(0);" class="nav next_02">이전목록</a>
         </div>
-        <button type="button" class="btn btn-primary fr">약관그룹등록</button>
+        <button type="button" class="btn btn-primary fr">관리자 등록</button>
     </div>
 
 </div>

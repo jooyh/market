@@ -6,45 +6,19 @@
 <div class="left-navi">
     <ul class="lst">
     	<c:forEach var="item" items="${sessionScope.admMenu}" varStatus="st">
-			<c:choose>
-				<c:when test="${st.index == 0}">
-					<li class="active">
-					<strong>${item.parMenuNm}</strong>
+    		<c:if test="${item.menuDeps eq 1}">
+    			<li class="active">
+					<strong>${item.menuNm}</strong>
 					<ul>
-					<li><a href="${item.menuUrl}">${item.menuNm}</a></li>
-				</c:when>
-				<c:when test="${sessionScope.ADM_MENU[st.index-1].parMenuId != item.parMenuId}">
+						<c:forEach var="innerItem" items="${sessionScope.admMenu}">
+							<c:if test="${innerItem.menuDeps eq 2  && item.menuId eq innerItem.parMenuId}">
+								<li><a href="${innerItem.menuUrl}">${innerItem.menuNm}</a></li>
+							</c:if>
+						</c:forEach>
 					</ul>
-					</li>
-					<li class="active">
-					<strong>${item.parMenuNm}</strong>
-					<ul>
-					<li><a href="${item.menuUrl}">${item.menuNm}</a></li>
-				</c:when>
-				<c:when test="${fn:length(sessionScope.ADM_MENU)-1 == st.index}">
-					<li><a href="${item.menuUrl}">${item.menuNm}</a></li>
-					</ul>
-		 			</li>
-				</c:when>
-				<c:otherwise>
-					<li><a href="${item.menuUrl}">${item.menuNm}</a></li>
-				</c:otherwise>
-			</c:choose>
+				</li>
+    		</c:if>
     	</c:forEach>
-<!--         <li class="active">
-            <strong>사용자 관리</strong>
-            <ul>
-                <li><a href="javascript:void(0)">허용 IP 관리</a></li>
-                <li><a href="javascript:void(0)">허용 IP 관리</a></li>
-                <li><a href="javascript:void(0)">허용 IP 관리</a></li>
-            </ul>
-        </li>
-        <li class="active">
-            <strong>관리자 관리</strong>
-            <ul>
-                <li><a href="javascript:void(0)">관리자 등록</a></li>
-            </ul>
-        </li> -->
     </ul>
 </div>
 <div class="tit-box">

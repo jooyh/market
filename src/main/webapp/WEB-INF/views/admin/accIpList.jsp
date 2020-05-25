@@ -65,7 +65,7 @@
             <a href="javascript:void(0);" class="nav next_01">처음목록</a>
             <a href="javascript:void(0);" class="nav next_02">이전목록</a>
         </div>
-        <button type="button" class="btn btn-primary fr">약관그룹등록</button>
+        <button type="button" class="btn btn-primary fr">허용 IP 등록</button>
     </div>
 
 </div>
