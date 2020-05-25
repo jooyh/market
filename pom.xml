@@ -254,6 +254,22 @@
             <artifactId>tiles-template</artifactId>
             <version>${org.apache.tiles-version}</version>
         </dependency>
+        <!-- taglibs -->
+        <dependency>
+	        <groupId>taglibs</groupId>
+	        <artifactId>datetime</artifactId>
+	        <version>1.0.1</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>taglibs</groupId>
+	        <artifactId>string</artifactId>
+	        <version>1.1.0</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>taglibs</groupId>
+	        <artifactId>standard</artifactId>
+	        <version>1.1.2</version>
+	    </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -1,6 +1,7 @@
 package com.study.market.commons.util;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,17 +29,31 @@ public class Interceptor extends HandlerInterceptorAdapter{
 	@Autowired
 	private AuthService authService;
 
+	private static final String ADM_SESSION_KEY = "admSession";
+	private static final String ADM_MENU_KEY = "admMenu";
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		this.convertRequestToMap(request);
 		String uri = request.getRequestURI();
+		if(!uri.contains("/admin/login")) {
+			if(request.getSession().getAttribute(ADM_SESSION_KEY) == null) {
+				response.sendRedirect("/admin/login");
+				return super.preHandle(request, response, handler);
+			};
+
+			List<Map<String,String>> menuList = (List) request.getSession().getAttribute(ADM_MENU_KEY);
+			for(Map menu : menuList) {
+				if(uri.equals(menu.get("menuUrl"))) {
+					request.getSession().setAttribute("nowMenuNm", menu.get("menuNm"));
+				}
+			}
+		};
+
 		logger.debug("===================       START       ===================");
 		logger.debug(" Request URI \t:  " + uri);
-
 		String ipAddr = request.getRemoteAddr();
-
-
 		Map params = (Map) request.getAttribute("params");
 		logger.debug(" params \t:  " + params.toString());
 
@@ -74,7 +89,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 	private void convertRequestToMap(HttpServletRequest request){
 		String jsonString = request.getParameter(JSON_STRING_KEY);
 		Map<String,Object> paramMap = new HashMap<String,Object>();
-		if(StringUtils.hasText(jsonString)) {
+		if(StringUtils.hasText(jsonString)) { // JSON string으로 전달 한 경우
 			try {
 				ObjectMapper om = new ObjectMapper();
 				paramMap = om.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
@@ -99,6 +114,19 @@ public class Interceptor extends HandlerInterceptorAdapter{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}else {// JSON string으로 전달 하지 않은 경우
+			Enumeration enums = request.getParameterNames();
+			while(enums.hasMoreElements()){
+				String paramName = (String)enums.nextElement();
+				String[] parameters = request.getParameterValues(paramName);
+				// Parameter가 배열일 경우
+				if(parameters.length > 1){
+					paramMap.put(paramName, parameters);
+				// Parameter가 배열이 아닌 경우
+				}else{
+					paramMap.put(paramName, parameters[0]);
+				}
 			}
 		}
 //		Map sessionMap = (Map) request.getSession().getAttribute(SESSION_USER_INFO_KEY);

@@ -44,8 +44,8 @@ public class AuthTest {
 	@Autowired
 	private ShaPasswordEncoder encoder;
 
-	@Value("${encode.salt}")
-	String salt;
+//	@Value("${encode.salt}")
+	String salt = "TEST_MARKET";
 
 	private Map userInfo;
 

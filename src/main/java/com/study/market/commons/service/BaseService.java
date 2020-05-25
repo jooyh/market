@@ -1,4 +1,7 @@
 package com.study.market.commons.service;
+
+import java.util.Map;
+
 /**
  * FILE NAME   : BaseService.java
  * PACKAGE     : com.study.market.commons
@@ -16,5 +19,10 @@ public class BaseService {
 		return sb.toString();
 	}
 
+
+	protected boolean validParams(Map params,String ... validKeys) {
+
+		return true;
+	}
 }
 

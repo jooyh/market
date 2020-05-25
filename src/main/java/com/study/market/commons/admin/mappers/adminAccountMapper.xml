@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminAccountMapper">
+	<select id="adminLogin" parameterType="Map" resultType="Map">
+		SELECT /* [AdminAccountMapper.adminLogin] 관리자 로그인 */
+			   ADM_ID    AS admId
+		     , ADM_EMAIL AS admEmail
+		     , ADM_NAME  AS admName
+		     , ADM_TYPE  AS admType
+		  FROM API_ADM_INFO
+		 WHERE USE_YN = 'Y'
+		   AND ADM_ID = #{admId}
+		   AND ADM_PW = #{admPw}
+	</select>
+</mapper>

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -30,7 +31,6 @@ public class RootConfiguration {
 
 	private static final String APP_CONFIG_FILE_PATH = "props/market.properties";
 
-
 	@Autowired
     private ApplicationContext applicationContext;
 
@@ -44,7 +44,8 @@ public class RootConfiguration {
 	private String password;
 
 	@Bean
-	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
+	@Order(1)
+	public static final PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
 		ppc.setLocations(new Resource[] { new ClassPathResource(APP_CONFIG_FILE_PATH) });
 		return ppc;

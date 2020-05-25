@@ -29,7 +29,6 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object> {
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
-		// TODO Auto-generated method stub
 		Map result = (Map) body;
 		if(!result.containsKey("code")) body = new ResultMap(body);
 		return body;
@@ -39,7 +38,7 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object> {
 	@ExceptionHandler(Exception.class)
     public ResponseEntity<ResultMap> exceptionHandler(Exception e) {
 		e.printStackTrace();
-        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus httpStatus = HttpStatus.OK;
         ResultMap rm = new ResultMap(null,e.hashCode(),e.getMessage());
         return new ResponseEntity<>(rm, httpStatus);
     }

@@ -2,9 +2,6 @@ package com.study.market.commons.admin.service;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,8 +19,8 @@ public class AdminAccountService extends BaseService{
 	@Autowired
 	private ShaPasswordEncoder encoder;
 
-	@Value("${encode.salt}")
-	private String salt;
+//	@Value("${encode.salt}") FIXME
+	private String salt = "TEST_MARKET";
 
 	private static final String NAME_SPACE = "AdminAccountMapper.";
 
@@ -38,12 +35,11 @@ public class AdminAccountService extends BaseService{
 	 * @return 관리자 정보
 	 * </pre>
 	 */
-	public Map adminLogin(HttpServletRequest request,HttpServletResponse response) {
-		Map params = (Map) request.getAttribute("params");
-		String userPw = (String) params.get("admPw");
-		String shaPw = encoder.encodePassword(userPw,null);
-		params.put("admPw", shaPw);
-		Map userInfo = sqlSession.selectOne(NAME_SPACE+"adminLogin",params);
+	public Map adminLogin(Map paramMap) {
+		String admPw = (String) paramMap.get("admPw");
+		String shaPw = encoder.encodePassword(admPw,salt);
+		paramMap.put("admPw",shaPw);
+		Map userInfo = sqlSession.selectOne(super.mkSqlId(NAME_SPACE, "adminLogin"),paramMap);
 		return userInfo;
 	}
 }

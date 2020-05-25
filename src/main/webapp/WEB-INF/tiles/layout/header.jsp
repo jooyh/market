@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
-	<div class="inrwrap">
-		<h1><img src="../static/images/common/logo.png" alt="DARIM Fnc"></h1>
-		<h2><img src="../static/images/common/tit_login.png" alt="Admin"></h2>
-		<div class="fncdv">
-			<div class="info">
-				<p><span class="txtip">접속 IP : 100.10.10.10</span><span>2020.02.27 12:00:00</span></p>
-				<p class="name"><a href="#">사원 홍길동</a></p>
-			</div>
-			<div class="fnc">
-				<a href="#" class="btn btnlogout">로그아웃</a>
-			</div>
-		</div>
-	</div>
+    <div class="fl">
+        <h1>
+            <a href="javascript:void(0)">
+                <img src="/resources/static/images/common/img_sub_logo.png" alt="콜뷰티 로고">
+            </a>
+        </h1>
+        <h2>관/리/시/스/템</h2>
+    </div>
+    <div class="fr">
+        <span class="name"><strong><c:out value="${sessionScope.admSession.admName}"/></strong>님</span>
+        <button type="button" class="btn-logout" onclick="location.href='/admin/logout'">로그아웃</button>
+    </div>
 </header>
