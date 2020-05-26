@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.study.market.commons.admin.service.AdminAccIpService;
 import com.study.market.commons.admin.service.AdminAccountService;
 import com.study.market.commons.admin.service.AdminMenuService;
 import com.study.market.commons.controller.BaseController;
@@ -27,6 +28,8 @@ public class AdminController extends BaseController{
 	private AdminAccountService adminAccountService;
 	@Autowired
 	private AdminMenuService adminMenuService;
+	@Autowired
+	private AdminAccIpService adminAccIpService;
 
 	private static final String ADM_SESSION_KEY = "admSession";
 	private static final String ADM_MENU_KEY = "admMenu";
@@ -54,8 +57,17 @@ public class AdminController extends BaseController{
 	public String adminLogin(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		Map sessionInfo = (Map) session.getAttribute(ADM_SESSION_KEY);
+
+
 		if(sessionInfo != null && !sessionInfo.isEmpty()) return "redirect:/admin/accIpList";
 		//session.removeAttribute(ADM_SESSION_KEY);
+
+		if(sessionInfo.get("adminType").equals("S")) { //일반 사용자의 경우
+
+		}else { //관리자의 경우
+
+		}
+
 		return "/admin/login.part";
 	}
 
@@ -123,5 +135,10 @@ public class AdminController extends BaseController{
 		request.getSession().removeAttribute(ADM_MENU_KEY);
 		request.getSession().removeAttribute(ADM_SESSION_KEY);
 		return "redirect:/admin/login";
+	}
+
+	@RequestMapping("getAccIpList")
+	public ResultMap getAccIpList(HttpServletRequest request) {
+		return new ResultMap(adminAccIpService.selectAccIpList(getParamMap(request)));
 	}
 }
