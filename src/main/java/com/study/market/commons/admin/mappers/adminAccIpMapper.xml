@@ -65,7 +65,7 @@
 	<update id="updateAccIpByAdmin" parameterType="Map">
 	     UPDATE API_ACC_IP SET /* [AdminAccIpMapper."updateAccIpByAdmin"] 허용 아이피 수정 (관리자) */
 		      , STATUS    = #{status}
-		      , AUTH_USER = #{userId}
+		      , AUTH_USER = #{use rId}
           WHERE SEQ = #{seq}
 	</update>
 </mapper>

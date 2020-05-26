@@ -21,8 +21,33 @@ public class AdminAccIpService extends BaseService{
 
 	private static final String NAME_SPACE = "AdminAccIpMapper.";
 
+	/**
+	 * NAME : selectAccIpList
+	 * DESC : 허용 IP 목록 조회
+	 * DATE : 2020. 5. 26.
+	 * <pre>
+	 * @auther jyh
+	 * @param params
+	 * @return
+	 * </pre>
+	 */
 	public List selectAccIpList(Map params) {
 		return sqlSession.selectList(mkSqlId(NAME_SPACE, "selectAccIpList"),params);
 	}
+
+	/**
+	 * NAME : insertAccIp
+	 * DESC : 허용 IP 등록
+	 * DATE : 2020. 5. 26.
+	 * <pre>
+	 * @auther jyh
+	 * @param params
+	 * @return
+	 * </pre>
+	 */
+	public int insertAccIp(Map params) {
+		return sqlSession.insert(mkSqlId(NAME_SPACE, "insertAccIp"), params);
+	}
+
 
 }
