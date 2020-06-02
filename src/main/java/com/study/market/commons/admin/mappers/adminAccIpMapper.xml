@@ -3,15 +3,15 @@
 <mapper namespace="AdminAccIpMapper">
 	<select id="selectAccIpList" resultType="Map" parameterType="Map">
 		SELECT /* [AdminAccIpMapper.selectAccIpList] 허용 IP 목록 조회 */
-		       SEQ
-		     , REQ_DATE
-		     , IP
-		     , STATUS
-		     , AUTH_USER
-		     , REG_DATE
-		     , REG_USER
-		     , UPD_DATE
-		     , UPD_USER
+		       SEQ         AS seq
+		     , REQ_DATE    AS reqDate
+		     , IP          AS ip
+		     , STATUS      AS status
+		     , AUTH_USER   AS authUser
+		     , REG_DATE    AS regDate
+		     , REG_USER    AS regUser
+		     , UPD_DATE    AS updDate
+		     , UPD_USER    AS updUser
 		  FROM API_ACC_IP
 		 WHERE 1=1
 	  	<if test="srchValue != null and !srchValue.equals('')">

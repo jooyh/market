@@ -62,11 +62,11 @@ public class AdminController extends BaseController{
 		if(sessionInfo != null && !sessionInfo.isEmpty()) return "redirect:/admin/accIpList";
 		//session.removeAttribute(ADM_SESSION_KEY);
 
-		if(sessionInfo.get("adminType").equals("S")) { //일반 사용자의 경우
-
-		}else { //관리자의 경우
-
-		}
+//		if(sessionInfo.get("adminType").equals("S")) { //일반 사용자의 경우
+//
+//		}else { //관리자의 경우
+//
+//		}
 
 		return "/admin/login.part";
 	}
@@ -138,6 +138,7 @@ public class AdminController extends BaseController{
 	}
 
 	@RequestMapping("getAccIpList")
+	@ResponseBody
 	public ResultMap getAccIpList(HttpServletRequest request) {
 		return new ResultMap(adminAccIpService.selectAccIpList(getParamMap(request)));
 	}

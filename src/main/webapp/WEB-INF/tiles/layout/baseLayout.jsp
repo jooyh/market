@@ -16,6 +16,11 @@
 <script src="/resources/static/js/jquery-1.10.2.js"></script>
 <script src="/resources/static/js/common.js"></script>
 </head>
+<script>
+	$(function(){
+		fn_pageInit();
+	});
+</script>
 <body>
 	<div id="wrapper">
 		<tiles:insertAttribute name="header"/>
@@ -26,9 +31,4 @@
 <%-- 		<tiles:insertAttribute name="footer"/> --%>
 	</div>
 </body>
-<script>
-	$(function(){
-		fn_pageInit();
-	});
-</script>
 </html>

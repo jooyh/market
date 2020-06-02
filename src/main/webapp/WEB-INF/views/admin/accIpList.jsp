@@ -3,11 +3,10 @@
 
 <div id="contents">
     <div class="table-area">
-        <table class="tbl">
+        <table class="tbl" id="accIpTbl">
             <colgroup>
                 <col width="70px;"/>
                 <col />
-                <col width="130px"/>
                 <col width="130px"/>
                 <col width="130px"/>
                 <col width="130px"/>
@@ -18,40 +17,12 @@
                     <th>SEQ</th>
                     <th>IP</th>
                     <th>등록신청일</th>
-                    <th>허용IP</th>
                     <th>상태</th>
                     <th>등록자</th>
                     <th>등록일</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>3</td>
-                    <td class="align-l"><a href="javascript:void(0);">서비스 이용 약관</a></td>
-                    <td>필수</td>
-                    <td>3</td>
-                    <td>적용</td>
-                    <td>홍길동</td>
-                    <td>2020.03.12</td>
-                </tr>
-               <tr>
-                    <td>3</td>
-                    <td class="align-l"><a href="javascript:void(0);">서비스 이용 약관</a></td>
-                    <td>필수</td>
-                    <td>3</td>
-                    <td>적용</td>
-                    <td>홍길동</td>
-                    <td>2020.03.12</td>
-                </tr><tr>
-                    <td>3</td>
-                    <td class="align-l"><a href="javascript:void(0);">서비스 이용 약관</a></td>
-                    <td>필수</td>
-                    <td>3</td>
-                    <td>적용</td>
-                    <td>홍길동</td>
-                    <td>2020.03.12</td>
-                </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
     <div class="btn-area">
@@ -69,3 +40,4 @@
     </div>
 
 </div>
+<script src="/resources/static/js/pageJs/accIpList.js"></script>

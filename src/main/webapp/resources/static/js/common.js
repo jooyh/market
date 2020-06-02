@@ -8,7 +8,7 @@ $(document).ready(function(){
         }
     })
 
-    /* 테이블 체크박스 클릭 이벤트 */ 
+    /* 테이블 체크박스 클릭 이벤트 */
     // $(".ckAll").click(function(e){
     //     var tbl = $(e.target).parents("table");
     //     if ($(e.target).is(":checked")) tbl.find("input[type='checkbox']").prop("checked", true)
@@ -42,8 +42,8 @@ $(document).ready(function(){
             $(els).prop("checked",false);
         }
     }
-    
-    /* 파일등록 input 체인지 이벤트 */ 
+
+    /* 파일등록 input 체인지 이벤트 */
     var fileLst = $(".file-list li");
     var file = fileLst.find("input[type='file']");
     file.on("change",function(e){
@@ -94,7 +94,7 @@ $(document).ready(function(){
         $(this).parents("td").find(".date-btn").removeClass("active");
     })
 
-}); // $ function 
+}); // $ function
 
 
 Date.prototype.format = function(f) {
@@ -120,3 +120,6 @@ Date.prototype.format = function(f) {
 String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
 String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
 Number.prototype.zf = function(len){return this.toString().zf(len);};
+
+
+const DATE_PATTERN = /(\d{4})(\d{2})(\d{2})/;
