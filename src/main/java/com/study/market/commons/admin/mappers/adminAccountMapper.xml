@@ -12,4 +12,24 @@
 		   AND ADM_ID = #{admId}
 		   AND ADM_PW = #{admPw}
 	</select>
+
+	<insert id="adminRegist" parameterType="Map">
+		INSERT INTO /* [AdminAccountMapper.adminRegist] 관리자 등록 */
+		API_ADM_INFO (
+			           ADM_ID
+			          ,ADM_EMAIL
+			          ,ADM_PW
+			          ,ADM_NAME
+			          ,REG_DTM
+			          ,UPD_DTM
+		             )
+			  VALUES (
+			           #{admId}
+			          ,#{admEmail}
+			          ,#{admPw}
+			          ,#{admName}
+			          ,NOW()
+			          ,NOW()
+			         )
+	</insert>
 </mapper>

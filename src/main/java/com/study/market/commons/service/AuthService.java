@@ -53,11 +53,11 @@ public class AuthService extends BaseService{
 	 * @throws AuthException
 	 */
 	public Map chkAuthToken(String authToken) throws AuthException {
-		Map authMap = sqlSession.selectOne(NAME_SPACE+"chkAuthToken",authToken);
-		if(authMap == null || authMap.isEmpty()) {
+		Map userInfo = sqlSession.selectOne(NAME_SPACE+"chkAuthToken",authToken);
+		if(userInfo == null || userInfo.isEmpty()) {
 			throw new AuthException("인증정보가 없습니다.");
 		}
-		return authMap;
+		return userInfo;
 	}
 
 	/**
