@@ -2,6 +2,7 @@ package com.study.market.commons.admin.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -79,5 +80,24 @@ public class AdminAccountService extends BaseService{
 			throw new AuthException("토큰 생성 중 오류가 발생했습니다.",300);
 		}
 		return jwt;
+	}
+
+	public int getFavoritCount(Map paramMap) {
+		int favCnt = sqlSession.selectOne(super.mkSqlId(NAME_SPACE, "getFavoritCount"),paramMap);
+		return favCnt;
+	}
+	public boolean getIsFavorit(Map paramMap) {
+		int isFav = sqlSession.selectOne(super.mkSqlId(NAME_SPACE, "getIsFavorit"),paramMap);
+		return isFav > 0;
+	}
+	public boolean insertFavorit(Map paramMap) {
+		return sqlSession.insert(super.mkSqlId(NAME_SPACE, "insertFavorite"),paramMap) > 0;
+	}
+	public boolean deleteFavorit(Map paramMap) {
+		return sqlSession.insert(super.mkSqlId(NAME_SPACE, "deleteFavorite"),paramMap) > 0;
+	}
+	public List<Map> getFavoriteList(Map paramMap) {
+		List<Map> result = sqlSession.selectList(super.mkSqlId(NAME_SPACE, "selectFavoriteList"),paramMap);
+		return result;
 	}
 }

@@ -32,4 +32,57 @@
 			          ,NOW()
 			         )
 	</insert>
+
+
+	<select id="getFavoritCount" parameterType="Map" resultType="int">
+		SELECT COUNT(*) AS cnt
+		  FROM TMP_MOV_FAVORIT
+		 WHERE MOV_ID = #{movId}
+	</select>
+	<select id="getIsFavorit" parameterType="Map" resultType="int">
+		SELECT COUNT(*) AS cnt
+		  FROM TMP_MOV_FAVORIT
+		 WHERE MOV_ID = #{movId}
+		   AND USER_FROM = #{userFrom}
+	</select>
+	<insert id="insertFavorite" parameterType="Map">
+		INSERT INTO
+		TMP_MOV_FAVORIT (
+		                   USER_FROM
+		                 , MOV_ID
+		                 , MOV_TITLE
+		                 , MOV_IMG
+		                 , MOV_RUNTIME
+		                 , REG_DTM
+		                 , UPD_DTM
+		                )
+		          VALUES(
+		                   #{userFrom  }
+		                 , #{movId     }
+		                 , #{movTitle  }
+		                 , #{movImg    }
+		                 , #{movRuntime}
+		                 , NOW()
+		                 , NOW()
+		                )
+
+	</insert>
+	<delete id="deleteFavorite" parameterType="Map">
+		DELETE FROM TMP_MOV_FAVORIT
+		 WHERE MOV_ID    = #{movId}
+		   AND USER_FROM = #{userFrom}
+	</delete>
+
+	<select id="selectFavoriteList" parameterType="Map" resultType="Map">
+		SELECT  USER_FROM   AS   userFrom
+              , MOV_ID      AS   movId
+              , MOV_TITLE   AS   movTitle
+              , MOV_IMG     AS   movImg
+              , MOV_RUNTIME AS   movRuntime
+              , REG_DTM     AS   regDtm
+              , UPD_DTM     AS   updDtm
+		  FROM TMP_MOV_FAVORIT
+		 WHERE USER_FROM = #{userFrom}
+	</select>
+
 </mapper>

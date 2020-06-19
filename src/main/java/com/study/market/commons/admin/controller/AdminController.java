@@ -215,4 +215,32 @@ public class AdminController extends BaseController{
 //		return new ResultMap(sessionMap);
 //		return null;
 	}
+
+	@RequestMapping("favorit/favoritNumber")
+	@ResponseBody
+	public ResultMap getFavoritCount(HttpServletRequest request ){
+		return new ResultMap(adminAccountService.getFavoritCount(getParamMap(request)));
+	}
+
+	@RequestMapping("favorit/isFavorited")
+	@ResponseBody
+	public ResultMap getIsFavorited(HttpServletRequest request ){
+		return new ResultMap(adminAccountService.getIsFavorit(getParamMap(request)));
+	}
+	@RequestMapping("favorit/removeFavorit")
+	@ResponseBody
+	public ResultMap removeFavorite(HttpServletRequest request ){
+		return new ResultMap(adminAccountService.deleteFavorit(getParamMap(request)));
+	}
+	@RequestMapping("favorit/addFavorit")
+	@ResponseBody
+	public ResultMap addFavorit(HttpServletRequest request ) throws Exception{
+		return new ResultMap(adminAccountService.insertFavorit(getParamMap(request)));
+	}
+	@RequestMapping("favorit/getFavoritedMovies")
+	@ResponseBody
+	public ResultMap getFavoritedMovies(HttpServletRequest request ) throws Exception{
+		return new ResultMap(adminAccountService.getFavoriteList(getParamMap(request)));
+	}
+
 }
