@@ -23,7 +23,7 @@ public class WebInitializer implements WebApplicationInitializer{
 		this.addDispatcherServlet(servletContext);
 		this.addUtf8CharacterEncodingFilter(servletContext);
 //		this.addXssEscapeServletFilter(servletContext);
-		this.addSimpleCORSFilter(servletContext);
+//		this.addSimpleCORSFilter(servletContext);
 	} /** * Dispatcher Servlet 을 추가한다.
 		* CORS 를 가능하게 하기 위해서 dispatchOptionsRequest 설정을 true 로 한다.
 		* * @param servletContext */

@@ -15,13 +15,12 @@ import java.util.Map;
 public class BaseService {
 
 	protected String mkSqlId (String nameSpace,String methodNm) {
-		StringBuffer sb = new StringBuffer().append(nameSpace).append(methodNm);
+		StringBuffer sb = new StringBuffer().append(nameSpace).append('.').append(methodNm);
 		return sb.toString();
 	}
 
 
 	protected boolean validParams(Map params,String ... validKeys) {
-
 		return true;
 	}
 }
